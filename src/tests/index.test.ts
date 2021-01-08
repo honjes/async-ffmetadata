@@ -1,6 +1,7 @@
 import * as assert from "assert"
-import { getExecString, getMetaDataFromFile } from '../index'
+import { getExecString, getMetaDataFromFile, setMetaDataToFile } from '../index'
 import * as path from 'path'
+import * as fs from "fs"
 
 describe('getExecString: ', () => {
   it('Basic Functionality', () => {
@@ -12,7 +13,7 @@ describe('getExecString: ', () => {
     ])
     const expected = "testcom -t test"
 
-    assert.equal(result, expected)
+    assert.strictEqual(result, expected)
   })
   it('Basic Functionality - multiple attributes', () => {
     const result = getExecString('testcom', [
@@ -31,7 +32,7 @@ describe('getExecString: ', () => {
     ])
     const expected = "testcom -t test -d tert -x tunt"
 
-    assert.equal(result, expected)
+    assert.strictEqual(result, expected)
   })
   it('empty attributes name and/or value', () => {
     const result = getExecString('testcom', [
@@ -50,7 +51,7 @@ describe('getExecString: ', () => {
     ])
     const expected = "testcom test -d"
 
-    assert.equal(result, expected)
+    assert.strictEqual(result, expected)
   })
 })
 
@@ -66,7 +67,7 @@ describe('getMetaDataFromFile', () => {
       track: '1'
     }
 
-    assert.deepEqual(expected, result)
+    assert.deepStrictEqual(expected, result)
   })
   it('File not There - Should return empty Object', async () => {
     const pathToFile = path.join(__dirname, 'NotThere.mp3')
@@ -74,6 +75,54 @@ describe('getMetaDataFromFile', () => {
     const result = await getMetaDataFromFile(pathToFile)
     const expected = {}
 
-    assert.deepEqual(expected, result)
+    assert.deepStrictEqual(expected, result)
+  })
+})
+
+describe('setMetaDataToFile', () => {
+  it('Basic Functionlity - Should return true', async () => {
+    const pathToFile = path.join(__dirname, 'test.mp3')
+    const pathToSaveFile = path.join(__dirname, '__test.mp3')
+
+    const result = await setMetaDataToFile({
+      album: 'Test Album'
+    }, pathToFile, pathToSaveFile)
+    const expected = true
+
+    const resultMetaData = await getMetaDataFromFile(pathToSaveFile)
+    const expectedMetaData = {
+      album: 'Test Album',
+      albumArtist: 'AlbumInterpret',
+      encoder: 'Lavf58.45.100',
+      title: 'TestTitle',
+      track: '1'
+    }
+
+    assert.strictEqual(result, expected)
+    assert.deepStrictEqual(expectedMetaData, resultMetaData)
+
+    // Clen Up Test
+    fs.unlinkSync(pathToSaveFile)
+  })
+  it('File not There - Should return false', async () => {
+    const pathToFile = path.join(__dirname, 'NotThere.mp3')
+    const pathToSaveFile = path.join(__dirname, 'NotThere2.mp3')
+
+    const result = await setMetaDataToFile({
+      album: 'Test Album'
+    }, pathToFile, pathToSaveFile)
+    const expected = false
+
+    assert.strictEqual(expected, result)
+  })
+  it('Input same as Output - Should return false', async () => {
+    const pathToFile = path.join(__dirname, 'test.mp3')
+
+    const result = await setMetaDataToFile({
+      album: 'Test Album'
+    }, pathToFile, pathToFile)
+    const expected = false
+
+    assert.strictEqual(expected, result)
   })
 })

@@ -3,6 +3,7 @@
 import { exec } from 'child_process'
 import { metadataObj } from './interfaces'
 import * as path from 'path'
+import * as fs from 'fs'
 
 const ffmpegPath = path.join(__dirname, '../data/ffmpeg.exe')
 
@@ -74,11 +75,13 @@ export async function getMetaDataFromFile(filePath:string): Promise<metadataObj>
 
 /**
  * Adding Metadata to File
+ * @param {metadataObj} metaData Object with the Metadata that should be added
  * @param {string} inFilePath Path to file that should be taken as base
  * @param {string} outFilePath Path to file that should be the output file
- * @param {metadataObj} metaData Object with the Metadata that should be added
+ * @returns {boolean} gives back if it was successfull with writing the metadata
  */
-export async function setMetaDataToFile(inFilePath: string, outFilePath: string, metaData: metadataObj) {
+export async function setMetaDataToFile(metaData: metadataObj, inFilePath: string, outFilePath: string): Promise<boolean> {
+  // Creates the attr array for getExecString function with the metaData
   function getCommand() {
     let commandArray = [
       {
@@ -117,14 +120,14 @@ export async function setMetaDataToFile(inFilePath: string, outFilePath: string,
   // Generationg command
   const command = getCommand()
 
-  console.log('command: ', command)
   return new Promise(resolve => {
-    // Removing outfile if exists
-    exec(command, (err, stdout, stderr) => {
-      if (err) console.error('err: ', err)
-      // if (stderr) console.error('stderr: ', stderr)
-
-      resolve(stdout)
-    })
+    // Check if File Paths are the same
+    if (path.relative(inFilePath, outFilePath) === '') resolve(false)
+    else {
+      exec(command, (err, _, __) => {
+        if (err) resolve(false)
+        else resolve(true)
+      })
+    }
   })
 }
