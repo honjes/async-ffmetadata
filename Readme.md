@@ -14,8 +14,6 @@ async-ffmetadata is a module that gives you the possability to edit metadata for
 - [Motivation](#motivation)
 
 ## Getting Started
-Describe how to get started here.
-
 ### Install
 ```console
 npm i async-ffmetadata
