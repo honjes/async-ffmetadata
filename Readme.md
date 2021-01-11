@@ -1,0 +1,67 @@
+# async-ffmetadata
+
+![Github License](https://img.shields.io/badge/license-MIT-green)
+![Github Issues](https://img.shields.io/github/issues/honjes/async-ffmetadata)
+
+async-ffmetadata is a module that gives you the possability to edit metadata for music and video files using the ffmpeg cli with nodejs
+
+## Table of content
+
+- [**Getting Started**](#getting-started)
+- [Contributing](#contributing)
+- [License](#license)
+- [Get Help](#get-help)
+- [Motivation](#motivation)
+
+## Getting Started
+Describe how to get started here.
+
+### Install
+```console
+npm i async-ffmetadata
+// or
+yarn add async-ffmetadata
+```
+
+### Usage
+```javascript
+import { getMetaDataFromFile, setMetaDataToFile } from 'async-ffmetadata'
+
+const inFilePath = "/path/to/File"
+
+// Gives back the metadata of the file
+getMetaDataFromFile(inFilePath)
+  .then((metaData) => {
+    console.log(metaData)
+  })
+
+const outFilePath = "/path/to/NewFile"
+const metaData = {
+  title: "New Cool title"
+}
+
+// Saves the File as Copy with the added Metadata
+setMetaDataToFile(metaData, inFilePath, outFilePath)
+  .then((success) => {
+    if (success === true) console.log("File written")
+    else if (success === false) console.log("File not written")
+  })
+```
+## Contributing
+
+#### Issues
+In the case of a bug report, bugfix or a suggestions, please feel very free to open an issue.
+
+#### Pull request
+Pull requests are always welcome, and I'll do my best to do reviews as fast as I can.
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/this/project/blob/master/LICENSE)
+
+## Get Help
+- Contact me on Samuel.papke@protonmail.com
+- If appropriate, [open an issue](https://github.com/honjes/async-ffmetadata/issues) on GitHub
+
+## Motivation
+I searched for a easy to use way to write and read metadata with nodejs for a diffrent project. So i made this.

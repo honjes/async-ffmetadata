@@ -1,5 +1,6 @@
 import * as assert from "assert"
 import { getExecString, getMetaDataFromFile, setMetaDataToFile } from '../index'
+import * as ffmetadata from '../index'
 import * as path from 'path'
 import * as fs from "fs"
 
@@ -69,10 +70,31 @@ describe('getMetaDataFromFile', () => {
 
     assert.deepStrictEqual(expected, result)
   })
+  it('Diffrent Import - Should return Object with Metadata D', async () => {
+    const pathToFile = path.join(__dirname, 'test.mp3')
+
+    const result = await ffmetadata.getMetaDataFromFile(pathToFile)
+    const expected = {
+      albumArtist: 'AlbumInterpret',
+      encoder: 'Lavf58.45.100',
+      title: 'TestTitle',
+      track: '1'
+    }
+
+    assert.deepStrictEqual(expected, result)
+  })
   it('File not There - Should return empty Object', async () => {
     const pathToFile = path.join(__dirname, 'NotThere.mp3')
 
     const result = await getMetaDataFromFile(pathToFile)
+    const expected = {}
+
+    assert.deepStrictEqual(expected, result)
+  })
+  it('File not There [DiffrentImport] - Should return empty Object', async () => {
+    const pathToFile = path.join(__dirname, 'NotThere.mp3')
+
+    const result = await ffmetadata.getMetaDataFromFile(pathToFile)
     const expected = {}
 
     assert.deepStrictEqual(expected, result)

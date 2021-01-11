@@ -1,15 +1,20 @@
 {
-  "name": "ffmpeg",
+  "name": "async-ffmetadata",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "dev": "ts-node src/playground.ts",
     "build": "tsc",
     "test": "mocha"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "ffmpeg",
+    "metadata",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
