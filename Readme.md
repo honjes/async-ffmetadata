@@ -12,6 +12,7 @@ async-ffmetadata is a module that gives you the possability to edit metadata for
 - [License](#license)
 - [Get Help](#get-help)
 - [Motivation](#motivation)
+- [Alternative](#alternative)
 
 ## Getting Started
 ### Install
@@ -27,7 +28,7 @@ import { getMetaDataFromFile, setMetaDataToFile } from 'async-ffmetadata'
 
 const inFilePath = "/path/to/File"
 
-// Gives back the metadata of the file
+// Gives back the metadata of the file as object
 getMetaDataFromFile(inFilePath)
   .then((metaData) => {
     console.log(metaData)
@@ -63,3 +64,8 @@ This project is licensed under the [MIT License](https://github.com/this/project
 
 ## Motivation
 I searched for a easy to use way to write and read metadata with nodejs for a diffrent project. So i made this.
+
+## Alternative
+- [node-taglib2](https://github.com/voltraco/node-taglib2)
+- [mediainfo-wrapper](https://github.com/vankasteelj/mediainfo-wrapper)
+- [node-ffmetadata](https://github.com/parshap/node-ffmetadata#readme)
