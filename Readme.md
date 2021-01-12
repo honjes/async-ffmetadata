@@ -15,6 +15,10 @@ async-ffmetadata is a module that gives you the possability to edit metadata for
 - [Alternative](#alternative)
 
 ## Getting Started
+
+### Prerequisit
+To run this nodemodule you need to install ffmpeg on you machine. It can be downloaded from here: [ffmpeg Download](https://ffmpeg.org/download.html)
+
 ### Install
 ```console
 npm i async-ffmetadata
