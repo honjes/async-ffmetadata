@@ -9,8 +9,28 @@ on:
       - "main"
 
 jobs:
-  build:
+  ubuntu-build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [
+          12.x,
+          14.x
+        ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: FedericoCarboni/setup-ffmpeg@v1-beta
+        id: setup-ffmpeg
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run test
+      - run: npm run build
+  windows-build:
+    runs-on: windows-latest
     strategy:
       matrix:
         node-version: [
