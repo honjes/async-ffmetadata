@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
+    "target": "es2015",
     "lib": ["es2017"],
     "declaration": false,
     "noImplicitAny": false,
@@ -11,7 +10,8 @@
     "outDir": "dist"
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "index.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -5,7 +5,8 @@ import { metadataObj } from './interfaces'
 import * as path from 'path'
 import * as fs from 'fs'
 
-const ffmpegPath = path.join(__dirname, '../data/ffmpeg.exe')
+const dirname = path.join(process.cwd(), 'node_modules/async-ffmetadata')
+const ffmpegPath = path.join(dirname, 'data/ffmpeg.exe');
 
 /**
  * Returning string of a command from the given params
