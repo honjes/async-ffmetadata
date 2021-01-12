@@ -3,15 +3,15 @@
 import { exec } from 'child_process'
 import { metadataObj } from './interfaces'
 import * as path from 'path'
-import * as fs from 'fs'
 
-const dirname = path.join(process.cwd(), 'node_modules/async-ffmetadata')
-const ffmpegPath = path.join(dirname, 'data/ffmpeg.exe');
+const dirname = path.dirname(__filename)
+const ffmpegDefaultPath = path.join(dirname, '../data/ffmpeg.exe');
 
 /**
  * Returning string of a command from the given params
  * @param {string} command Command that should be executed
  * @param {object} attr Object with name and value of the option that should be added
+ * @return {string} Returns a command that can be executet in bash
  */
 export function getExecString(command: string, attr: {name?:string, value?:string}[]): string {
   let execStr = command
@@ -30,9 +30,11 @@ export function getExecString(command: string, attr: {name?:string, value?:strin
  * File Takes in Path and return object with metadata
  *
  * @param {string} filePath path to the File that you want the metadat from
+ * @param {object} options Posibility to send more options to the function
  * @returns {object} Return an object with metadata in the format {<metadataname>:<metadatavalue>}
  */
-export async function getMetaDataFromFile(filePath:string): Promise<metadataObj> {
+export async function getMetaDataFromFile(filePath:string, options?: {customFfmpegPath: string}): Promise<metadataObj> {
+  const ffmpegPath = options?.customFfmpegPath || ffmpegDefaultPath
   const command = getExecString(ffmpegPath, [
     {
       name: "i",
@@ -79,9 +81,11 @@ export async function getMetaDataFromFile(filePath:string): Promise<metadataObj>
  * @param {metadataObj} metaData Object with the Metadata that should be added
  * @param {string} inFilePath Path to file that should be taken as base
  * @param {string} outFilePath Path to file that should be the output file
+ * @param {object} options Posibility to send more options to the function
  * @returns {boolean} gives back if it was successfull with writing the metadata
  */
-export async function setMetaDataToFile(metaData: metadataObj, inFilePath: string, outFilePath: string): Promise<boolean> {
+export async function setMetaDataToFile(metaData: metadataObj, inFilePath: string, outFilePath: string, options?: {customFfmpegPath: string}): Promise<boolean> {
+  const ffmpegPath = options?.customFfmpegPath || ffmpegDefaultPath
   // Creates the attr array for getExecString function with the metaData
   function getCommand() {
     let commandArray = [

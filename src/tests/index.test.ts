@@ -57,7 +57,7 @@ describe('getExecString: ', () => {
 })
 
 describe('getMetaDataFromFile', () => {
-  it('Basic Functionlity - Should return Object with Metadata', async () => {
+  it('Basic Functionality - Should return Object with Metadata', async () => {
     const pathToFile = path.join(__dirname, 'test.mp3')
 
     const result = await getMetaDataFromFile(pathToFile)

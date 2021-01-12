@@ -105,3 +105,4 @@ dist
 
 package-lock.json
 src/tests/__*.*
+src/playground

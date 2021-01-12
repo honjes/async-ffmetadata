@@ -1,8 +1,7 @@
 {
   "name": "async-ffmetadata",
-  "type": "module",
   "module": "./dist/index.js",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "async-ffmetadata is a module that gives you the possability to edit metadata for music and video files using the ffmpeg cli with nodejs",
   "main": "dist/index.js",
   "scripts": {
