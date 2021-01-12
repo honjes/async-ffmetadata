@@ -4,8 +4,6 @@ import { exec } from 'child_process'
 import { metadataObj } from './interfaces'
 import * as path from 'path'
 
-const dirname = path.dirname(__filename)
-const ffmpegDefaultPath = path.join(dirname, '../data/ffmpeg.exe');
 
 /**
  * Returning string of a command from the given params
@@ -34,7 +32,7 @@ export function getExecString(command: string, attr: {name?:string, value?:strin
  * @returns {object} Return an object with metadata in the format {<metadataname>:<metadatavalue>}
  */
 export async function getMetaDataFromFile(filePath:string, options?: {customFfmpegPath: string}): Promise<metadataObj> {
-  const ffmpegPath = options?.customFfmpegPath || ffmpegDefaultPath
+  const ffmpegPath = options?.customFfmpegPath || "ffmpeg"
   const command = getExecString(ffmpegPath, [
     {
       name: "i",
@@ -85,7 +83,7 @@ export async function getMetaDataFromFile(filePath:string, options?: {customFfmp
  * @returns {boolean} gives back if it was successfull with writing the metadata
  */
 export async function setMetaDataToFile(metaData: metadataObj, inFilePath: string, outFilePath: string, options?: {customFfmpegPath: string}): Promise<boolean> {
-  const ffmpegPath = options?.customFfmpegPath || ffmpegDefaultPath
+  const ffmpegPath = options?.customFfmpegPath || "ffmpeg"
   // Creates the attr array for getExecString function with the metaData
   function getCommand() {
     let commandArray = [
