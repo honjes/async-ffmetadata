@@ -4,21 +4,6 @@ import * as ffmetadata from '../index'
 import * as path from 'path'
 import * as fs from "fs"
 
-/**
- * Creating the testfile with metadata
- */
-before(async () => {
-  const pathToInFile = path.join(__dirname, 'test.mp3')
-  const pathToOutFile = path.join(__dirname, '_test.mp3')
-  const metaData = {
-    albumArtist: 'AlbumInterpret',
-    encoder: 'Lavf58.45.100',
-    title: 'TestTitle',
-    track: '1'
-  }
-  await setMetaDataToFile(metaData, pathToInFile, pathToOutFile)
-})
-
 describe('getExecString: ', () => {
   it('Basic Functionality', () => {
     const result = getExecString('testcom', [
@@ -73,10 +58,7 @@ describe('getExecString: ', () => {
 
 describe('getMetaDataFromFile', () => {
   it('Basic Functionality - Should return Object with Metadata', async () => {
-    const pathToFile = path.join(__dirname, '_test.mp3')
-    const pathExists = fs.existsSync(pathToFile)
-    console.log('pathToFile: ', pathToFile);
-    console.log('pathExists: ', pathExists);
+    const pathToFile = path.join(__dirname, 'test.mp3')
 
     const result = await getMetaDataFromFile(pathToFile)
     const expected = {
@@ -89,7 +71,7 @@ describe('getMetaDataFromFile', () => {
     assert.deepStrictEqual(expected, result)
   })
   it('Diffrent Import - Should return Object with Metadata D', async () => {
-    const pathToFile = path.join(__dirname, '_test.mp3')
+    const pathToFile = path.join(__dirname, 'test.mp3')
 
     const result = await ffmetadata.getMetaDataFromFile(pathToFile)
     const expected = {
@@ -121,7 +103,7 @@ describe('getMetaDataFromFile', () => {
 
 describe('setMetaDataToFile', () => {
   it('Basic Functionlity - Should return true', async () => {
-    const pathToFile = path.join(__dirname, '_test.mp3')
+    const pathToFile = path.join(__dirname, 'test.mp3')
     const pathToSaveFile = path.join(__dirname, '__test.mp3')
 
     const result = await setMetaDataToFile({
@@ -156,7 +138,7 @@ describe('setMetaDataToFile', () => {
     assert.strictEqual(expected, result)
   })
   it('Input same as Output - Should return false', async () => {
-    const pathToFile = path.join(__dirname, '_test.mp3')
+    const pathToFile = path.join(__dirname, 'test.mp3')
 
     const result = await setMetaDataToFile({
       album: 'Test Album'
@@ -165,12 +147,4 @@ describe('setMetaDataToFile', () => {
 
     assert.strictEqual(expected, result)
   })
-})
-
-/**
- * Removing the testfile with metadata
- */
-after(() => {
-  const pathToOutFile = path.join(__dirname, '_test.mp3')
-  fs.unlinkSync(pathToOutFile)
 })
