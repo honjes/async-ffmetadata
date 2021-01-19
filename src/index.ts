@@ -1,8 +1,8 @@
 // MeatadataInfo comes from here: https://wiki.multimedia.cx/index.php?title=FFmpeg_Metadata
 
-import { exec } from 'child_process'
 import { metadataObj } from './interfaces'
-import * as path from 'path'
+const exec = require('child_process').exec
+const path = require('path')
 
 
 /**

@@ -1,9 +1,9 @@
 {
   "name": "async-ffmetadata",
-  "module": "./dist/index.js",
-  "version": "0.1.5",
+  "module": "index.ts",
+  "version": "0.1.8",
   "description": "async-ffmetadata is a module that gives you the possability to edit metadata for music and video files using the ffmpeg cli with nodejs",
-  "main": "dist/index.js",
+  "main": "index.ts",
   "scripts": {
     "dev": "ts-node src/playground.ts",
     "build": "tsc",
@@ -23,5 +23,6 @@
     "mocha": "^8.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  }
+  },
+  "dependencies": {}
 }

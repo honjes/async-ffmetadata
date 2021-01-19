@@ -1,8 +1,8 @@
 import * as assert from "assert"
 import { getExecString, getMetaDataFromFile, setMetaDataToFile } from '../index'
 import * as ffmetadata from '../index'
-import * as path from 'path'
-import * as fs from "fs"
+const fs = require('fs')
+const path = require('path')
 
 describe('getExecString: ', () => {
   it('Basic Functionality', () => {
@@ -58,6 +58,7 @@ describe('getExecString: ', () => {
 
 describe('getMetaDataFromFile', () => {
   it('Basic Functionality - Should return Object with Metadata', async () => {
+
     const pathToFile = path.join(__dirname, 'test.mp3')
 
     const result = await getMetaDataFromFile(pathToFile)
@@ -99,7 +100,7 @@ describe('getMetaDataFromFile', () => {
 
     assert.deepStrictEqual(expected, result)
   })
-})
+}).timeout("3s").slow("2s")
 
 describe('setMetaDataToFile', () => {
   it('Basic Functionlity - Should return true', async () => {
