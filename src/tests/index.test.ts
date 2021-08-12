@@ -100,7 +100,7 @@ describe('getMetaDataFromFile', () => {
 
     assert.deepStrictEqual(expected, result)
   })
-}).timeout("3s").slow("2s")
+}).timeout(4000).slow("2s")
 
 describe('setMetaDataToFile', () => {
   it('Basic Functionlity - Should return true', async () => {

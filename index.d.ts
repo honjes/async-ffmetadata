@@ -1,6 +1,6 @@
 declare module "async-ffmetadata"
 declare interface metadataObj{
-  title?: string,
+  /**title?: string,
   author?: string,
   album_artist?: string,
   album?: string,
@@ -28,7 +28,7 @@ declare interface metadataObj{
   albumSort?: string,
   artistSort?: string,
   titleSort?: string,
-  albumArtist?: string,
+  albumArtist?: string,**/
   [key: string]: string,
 }
 declare function getMetaDataFromFile(filePath:string): Promise<metadataObj>

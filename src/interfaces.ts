@@ -1,5 +1,5 @@
 export interface metadataObj{
-  title?: string,
+  /**title?: string,
   author?: string,
   album_artist?: string,
   album?: string,
@@ -27,6 +27,6 @@ export interface metadataObj{
   albumSort?: string,
   artistSort?: string,
   titleSort?: string,
-  albumArtist?: string,
+  albumArtist?: string,*/
   [key: string]: string,
 }

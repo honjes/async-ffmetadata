@@ -1,6 +1,8 @@
 // MeatadataInfo comes from here: https://wiki.multimedia.cx/index.php?title=FFmpeg_Metadata
 
-import { metadataObj } from './interfaces'
+interface metadataObj{
+  [key: string]: string,
+}
 const exec = require('child_process').exec
 const path = require('path')
 
@@ -49,7 +51,7 @@ export async function getMetaDataFromFile(filePath:string, options?: {customFfmp
   ])
 
   return new Promise((resolve) => {
-    exec(command, (_, stdout, __) => {
+    exec(command, (_: any, stdout: string, __: any) => {
       const output: metadataObj = {}
       stdout
         //removing Header
@@ -61,7 +63,7 @@ export async function getMetaDataFromFile(filePath:string, options?: {customFfmp
           const splitstr = str.split("=")
           //replacing - and _ in Name with Highercase letter
           output[splitstr[0]
-            .replace(/(-|_)[a-zA-Z]/g, (rep) => {
+            .replace(/(-|_)[a-zA-Z]/g, (rep: string) => {
               return rep.replace('-','').replace('_','').toUpperCase()
             })
           ] = splitstr[1]
@@ -127,7 +129,7 @@ export async function setMetaDataToFile(metaData: metadataObj, inFilePath: strin
     // Check if File Paths are the same
     if (path.relative(inFilePath, outFilePath) === '') resolve(false)
     else {
-      exec(command, (err, _, __) => {
+      exec(command, (err: string, _: any, __: any) => {
         if (err) resolve(false)
         else resolve(true)
       })

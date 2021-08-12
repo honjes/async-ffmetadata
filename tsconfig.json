@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "lib": ["es2017"],
-    "declaration": false,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "inlineSourceMap": true,
-    "moduleResolution": "node",
-    "outDir": "dist"
+    "module": "es2015",
+    "target": "ES2017",
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
   },
   "include": [
     "src/**/*.ts",
